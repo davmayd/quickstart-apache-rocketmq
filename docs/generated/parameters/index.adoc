@@ -1,1 +1,3 @@
-// placeholder
+
+=== Launch into an new VPC
+include::rocketmq-entrypoint.template.adoc[]
