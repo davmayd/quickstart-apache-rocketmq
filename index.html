@@ -808,9 +808,23 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_use_apache_rocketmq">Use Apache RocketMQ</a></li>
 <li><a href="#_how_do_i_log_in_to_apache_rocketmqs_nameserver_and_broker_node">How do I log in to Apache RocketMQ&#8217;s Nameserver and Broker Node?</a></li>
 <li><a href="#_how_to_view_web_console_from_apache_rocketmq_using_your_browser">How to view Web Console from Apache RocketMQ using your browser</a></li>
-<li><a href="#_cloudformation_parameter">CloudFormation Parameter</a></li>
 </ul>
 </li>
+<li><a href="#_test_the_deployment">Test the deployment</a></li>
+<li><a href="#_best_practices_for_using_rocketmq_on_aws">Best practices for using RocketMQ on AWS</a></li>
+<li><a href="#_security">Security</a></li>
+<li><a href="#_other_useful_information">Other useful information</a></li>
+<li><a href="#_faq">FAQ</a></li>
+<li><a href="#_troubleshooting">Troubleshooting</a></li>
+<li><a href="#_parameter_reference">Parameter reference</a>
+<ul class="sectlevel2">
+<li><a href="#_launch_into_an_new_vpc">Launch into an new VPC</a></li>
+</ul>
+</li>
+<li><a href="#_send_us_feedback">Send us feedback</a></li>
+<li><a href="#_quick_start_reference_deployments">Quick Start reference deployments</a></li>
+<li><a href="#_github_repository">GitHub repository</a></li>
+<li><a href="#_notices">Notices</a></li>
 </ul>
 </div>
 </div>
@@ -882,7 +896,7 @@ Amazon may share user-deployment information with the AWS Partner that collabora
 <h2 id="_aws_costs">AWS costs</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You are responsible for the cost of the AWS services and any paid third-party licenses used while running this Quick Start. There is no additional cost for
+<p>You are responsible for the cost of the AWS services and any third-party licenses used while running this Quick Start. There is no additional cost for
 using the Quick Start.</p>
 </div>
 <div class="paragraph">
@@ -1368,334 +1382,138 @@ Example: ssh -qTfnN -D 40011  -i "rocketMQ.pem" <a href="mailto:ec2-user@ec2-54-
 </li>
 </ol>
 </div>
+<div class="olist arabic">
+<ol class="arabic" start="5">
+<li>
+<p>On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re finished, choose <strong>Next</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.</p>
+</li>
+<li>
+<p>Choose <strong>Create stack</strong> to deploy the stack.</p>
+</li>
+<li>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the RocketMQ deployment is ready.</p>
+</li>
+<li>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Figure 2</a>, to view the created resources.</p>
+</li>
+</ol>
+</div>
+<div id="cfn_outputs" class="imageblock">
+<div class="content">
+<a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="100%" height="100%"></a>
+</div>
+<div class="title">Figure 2. RocketMQ outputs after successful deployment</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_the_deployment">Test the deployment</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_best_practices_for_using_rocketmq_on_aws">Best practices for using RocketMQ on AWS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Add any best practices for using the software.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_security">Security</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Add any security-related information.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_other_useful_information">Other useful information</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Add any other details that will help the customer use the software on AWS.</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. This setting is under <strong>Advanced</strong> in the AWS CloudFormation console on the <strong>Configure stack options</strong> page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in <code>%ProgramFiles%\Amazon\EC2ConfigService</code> and <code>C:\cfn\log</code>.)</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q.</strong> I encountered a size-limitation error when I deployed the AWS CloudFormation templates.</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation quotas</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting">Troubleshooting</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>&lt;Steps for troubleshooting the deployment.&gt;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_parameter_reference">Parameter reference</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled <code>Quick Start S3 bucket name</code>, <code>Quick Start S3 bucket
+Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
-<h3 id="_cloudformation_parameter">CloudFormation Parameter</h3>
-<div class="sect3">
-<h4 id="_deploy_apache_rocketmq_to_the_new_vpc">Deploy Apache RocketMQ to the new VPC</h4>
+<h3 id="_launch_into_an_new_vpc">Launch into an new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Network Configuration</caption>
 <colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
 </colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The parameter label</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The name of the argument</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The default Value</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Description</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Availability Zones</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">AvailabilityZones</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Required</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">A list of availability zones. The logical order that you specify is preserved. This deployment enables the use of 2 or 3 available zones.  When you&#8217;re done selecting, make sure that the parameter “Number of Availability Zones” is the same as your selection here.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Number of Availability Zones</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NumberOfAZs</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The number of availability zones (2 or 3) to use in the VPC. This number must be consistent with your selection in the Availability Zones parameter;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VPC CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VPCCIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.0.0/16</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the VPC to create.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Private Subnet 1 CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PrivateSubnet1CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.0.0/19</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the private subnet in Availability Zone 1 can be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Private Subnet 2 CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PrivateSubnet2CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.32.0/19</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the private subnet in Availability Zone 2 can be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Private Subnet 3 CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PrivateSubnet3CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.64.0/19</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the private subnet in Availability Zone 3 can be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Public Subnet 1 CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PublicSubnet1CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.128.0/20</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the public subnet in Availability Zone 1 can be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Public Subnet 2 CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PublicSubnet2CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.144.0/20</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the public subnet in Availability Zone 2 can be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Public Subnet 3 CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PublicSubnet3CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">10.0.160.0/20</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR block of the public subnet in Availability Zone 3 can be used.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Allowed Bastion External Access CIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">RemoteAccessCIDR</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The CIDR IP range that allows external SSH access to the bastion host. We recommend that you set this value to a trusted IP range. For example, you might want to grant access only to corporate network IP segments.   If all external hosts are allowed access, you can set it to 0.0.0.0/0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Key Name</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">KeyPairName</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">EC2 key pair, used to connect EC2 instances.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Bastion AMI Operating System</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BastionAMIOS</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">AmazonLinuxHVM</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">You can choose Amazon Linux, CentOS, or Ubuntu Server. If you select CentOS, make sure you are subscribed to CentOS AMI in AWS Marketplace first.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Bastion Instance Type</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BastionInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">t2.micro</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The EC2 real-world type of the bastion host instance.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Number of Bastion Hosts</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NumBastionHosts</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Number of bastion hosts. Auto Scaling will ensure that you always maintain this number of bastion host.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Number of Apache RocketMQ NameServer Cluster Node</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServerClusterCount</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Select the number of Apache RocketMQ Nameserver nodes to deploy.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Number of Apache RocketMQ Broker Cluster Node</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BrokerClusterCount</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Select the number of Apache RocketMQ Broker nodes to deploy.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">IOPS</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Iops</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">100</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">If you select the io1 volume type, this setting is IOPS for the EBS volume, otherwise this option is ignored.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">RocketMQ Version</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">RocketMQVersion</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">4.7.1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Select the software version of Apache RocketMQ for deployment and currently supports 4.7.1 and 4.8.0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServer Intance type</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServerInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">m5.large</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The EC2 instance type of the Nameserver node</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Broker Node Instance Type</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BrokerNodeInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">m5.xlarge</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Broker node EC2 instance type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Apache RocketMQ flush Disk Type</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">FlushDiskType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">ASYNC_FLUSH</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Apache RocketMQ Flush Disk type (ASYNC_FLUSH or SYNC_FLUSH).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Volume Size</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VolumeType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Gp2</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The type of volume for the Amazon EBS (data) volume to mount to the RocketMQ node (gp2 or io1).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Quick Start S3 Bucket Name</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">QSS3BucketName</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">aws-cnquickstart</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The S3 storage bucket where the resource is located. Do not change this selection except that you have manually updated the CloudFormation template of RocketMQ Quick Deployment and uploaded it to your own bucket.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Quick Start S3 Key Prefix</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">QSS3KeyPrefix</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">quickstart-rocketmq/</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">S3 prefix. Do not change this option except that you have manually updated the CloudFormation template and change the prefix.</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The parameter label</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The name of the argument</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The default Value</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Description</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VPC</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VPC</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">You want to deploy to an existing VPC ID (for example, vpc0343606e).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Primary Node Subnet</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">PrimaryNodeSubnet</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The Subnet ID (for example,  subnet-a0246dcd) is present in the VPC to which the main RocketMQ node is deployed.  This subnet needs to be in the VPC of your choice.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Secondary0 Node Subnet</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Secondary0NodeSubnet</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The subnet ID where the first secondary RocketMQ node in the replica set is located.  This subnet needs to exist in the selected VPC.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Secondary1 Node Subnet</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Secondary1NodeSubnet</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The ID of the subnet where the second secondary RocketMQ node in the replica set is located. This subnet needs to exist in the selected VPC.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Bastion Security Group ID</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BastionSecurityGroupID</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">ID (eg. sg7f16e910) for the security group of the fortress machine. This security group needs to exist in the VPC of your choice.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Key Name</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">KeyPairName</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><span class="red">Required</span></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Key pair, used to connect EC2 instances.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Quick Start S3 Bucket Name</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">QSS3BucketName</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">aws-quickstart</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The S3 storage bucket where the resource is located. Do not change this selection except that you have manually updated the CloudFormation template of RocketMQ Quick Deployment and uploaded it to your own bucket.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Quick Start S3 Key Prefix</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">QSS3KeyPrefix</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">quickstart-apache-rocketmq/</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">S3 prefix. Do not change this option except that you have manually updated the CloudFormation template and change the prefix.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Quick Start S3 bucket region</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">QSS3BucketRegion</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">us-east-1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The region for S3bucket.   Do not change this option except that you have manually updated the CloudFormation and stored it under the bucket of different regions.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BrokerClusterCount</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BrokerClusterCount</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">3</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The number of Apache RocketMQ Broker nodes deployed</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BrokerNodeInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">BrokerNodeInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">m5.xlarge</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The type of EC2 Instance of the Broker node</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">FlushDiskType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">FlushDiskType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">ASYNC_FLUSH</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Disk flush method of Apache RocketMQ, currently supports ASYNC_FLUSH and SYNC_FLUSH</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Iops</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Iops</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">100</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">If you select the io1 volume type, this setting is IOPS for the EBS volume, otherwise this selection is ignored.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServerClusterCount</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServerClusterCount</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">2</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Select the number of Apache RocketMQ Nameserver nodes to deploy.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServerInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">NameServerInstanceType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">m5.large</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The EC2 instance type of the NameServer node</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">RocketMQVersion</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">RocketMQVersion</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">4.7.1</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">Select the software version of Apache RocketMQ for deployment and currently supports 4 .7.1 and 4.8.0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VolumeSize</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VolumeSize</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">400</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The size of the Amazon EBS (data) volume (in GB) to mount to all RocketMQ nodes.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VolumeType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">VolumeType</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">gp2</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">The type of volume for the Amazon EBS (data) volume to mount to the RocketMQ node (gp2 or io1).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p>
-<p class="tableblock">[start=5]
-. On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re finished, choose <strong>Next</strong>.
-. On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.
-. Choose <strong>Create stack</strong> to deploy the stack.
-. Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the RocketMQ deployment is ready.
-. Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">[cfn_outputs]</a>, to view the created resources.</p>
-<p class="tableblock">:xrefstyle: short
-[#cfn_outputs]
-.RocketMQ outputs after successful deployment
-[link=images/cfn_outputs.png]
-image::../images/cfn_outputs.png[cfn_outputs,width=100%,height=100%]</p>
-<p class="tableblock">== Test the deployment</p>
-<p class="tableblock">== Best practices for using RocketMQ on AWS</p>
-<p class="tableblock"><em>Add any best practices for using the software.</em></p>
-<p class="tableblock">== Security</p>
-<p class="tableblock"><em>Add any security-related information.</em></p>
-<p class="tableblock">== Other useful information</p>
-<p class="tableblock"><em>Add any other details that will help the customer use the software on AWS.</em></p>
-<p class="tableblock">== FAQ</p>
-<p class="tableblock"><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
-<p class="tableblock"><strong>A.</strong> If AWS CloudFormation fails to create the stack, relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. This setting is under <strong>Advanced</strong> in the AWS CloudFormation console on the <strong>Configure stack options</strong> page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in <code>%ProgramFiles%\Amazon\EC2ConfigService</code> and <code>C:\cfn\log</code>.)</p>
-<p class="tableblock">WARNING: When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.</p>
-<p class="tableblock">For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a>.</p>
-<p class="tableblock"><strong>Q.</strong> I encountered a size-limitation error when I deployed the AWS CloudFormation templates.</p>
-<p class="tableblock"><strong>A.</strong> Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation quotas</a>.</p>
-<p class="tableblock">== Troubleshooting</p>
-<p class="tableblock">&lt;Steps for troubleshooting the deployment.&gt;</p>
-<p class="tableblock">== Parameter reference</p>
-<p class="tableblock">NOTE: Unless you are customizing the Quick Start templates for your own deployment projects, we recommend that you keep the default settings for the parameters labeled <code>Quick Start S3 bucket name</code>, <code>Quick Start S3 bucket
-Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For more information, see the <a href="https://aws-quickstart.github.io/option1.html" target="_blank" rel="noopener">AWS Quick Start Contributor’s Guide</a>.</p>
-<p class="tableblock">=== Launch into an new VPC
-.Network Configuration
-[width="100%",cols="16%,11%,73%",options="header",]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter label (name)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
 (<code>AvailabilityZones</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
@@ -1706,18 +1524,20 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>NumberOfAZs</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of Availability Zones to use in the VPC. This must match your selections in the list of Availability Zones parameter.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VPC CIDR
-(<code>VPCCIDR</code>)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VPC CIDR
+(<code>VPCCIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/16</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the VPC</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet 1 CIDR
 (<code>PrivateSubnet1CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.0.0/19</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 1 located in Availability Zone 1.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Private Subnet 2 CIDR
 (<code>PrivateSubnet2CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.32.0/19</code></p></td>
@@ -1728,18 +1548,20 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>PrivateSubnet3CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.64.0/19</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR block for private subnet 3 located in Availability Zone 3.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Public Subnet 1 CIDR
-(<code>PublicSubnet1CIDR</code>)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Public Subnet 1 CIDR
+(<code>PublicSubnet1CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.128.0/20</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 1 located in Availability Zone 1</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public Subnet 2 CIDR
 (<code>PublicSubnet2CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.144.0/20</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CIDR Block for the public DMZ subnet 2 located in Availability Zone 2</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public Subnet 3 CIDR
 (<code>PublicSubnet3CIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>10.0.160.0/20</code></p></td>
@@ -1750,63 +1572,89 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>RemoteAccessCIDR</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Allowed CIDR block for external SSH access to the bastions</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===
-.Security Configuration
-[width="100%",cols="16%,11%,73%",options="header",]</p></td>
 </tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. Security Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter label (name)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Key Pair Name
 (<code>KeyPairName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Public/private key pairs allow you to securely connect to your instance after it launches</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===
-.Linux Bastion Amazon EC2 Configuration
-[width="100%",cols="16%,11%,73%",options="header",]</p></td>
 </tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Linux Bastion Amazon EC2 Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter label (name)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Bastion AMI Operating System
 (<code>BastionAMIOS</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Amazon-Linux2-HVM</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The Linux distribution for the AMI to be used for the bastion instances.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bastion Instance Type
-(<code>BastionInstanceType</code>)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bastion Instance Type
+(<code>BastionInstanceType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>t2.micro</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Amazon EC2 instance type for the second bastion instance</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of Bastion Hosts
 (<code>NumBastionHosts</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>1</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enter the number of bastion hosts to create</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===
-.RocketMQ Cluster Configuration
-[width="100%",cols="16%,11%,73%",options="header",]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter label (name)</p></td>
 </tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. RocketMQ Cluster Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of Apache RocketMQ NameServer Cluster Node
 (<code>NameServerClusterCount</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>2</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of Apache RocketMQ NameServer nodes. Choose between 1-3</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of Apache RocketMQ NameServer nodes. Choose between 1-3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Number of Apache RocketMQ Broker Cluster Node
 (<code>BrokerClusterCount</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>3</code></p></td>
@@ -1817,18 +1665,20 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>Iops</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>100</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Iops of EBS volume when io1 type is chosen. Otherwise ignored</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">RocketMQ Version
-(<code>RocketMQVersion</code>)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RocketMQ Version
+(<code>RocketMQVersion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>4.7.1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RocketMQ version</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NameServer Intance type
 (<code>NameServerInstanceType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>m5.large</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon EC2 instance type for the RocketMQ nameserver nodes.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Amazon EC2 instance type for the RocketMQ nameserver nodes.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Broker Node Instance Type
 (<code>BrokerNodeInstanceType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>m5.xlarge</code></p></td>
@@ -1839,33 +1689,43 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>FlushDiskType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>ASYNC_FLUSH</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Apache RocketMQ flush Disk Type [ASYNC_FLUSH,SYNC_FLUSH]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Volume Size
-(<code>VolumeSize</code>)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume Size
+(<code>VolumeSize</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>400</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EBS Volume Size (data) to be attached to node in GBs</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Volume Type
 (<code>VolumeType</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>gp3</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EBS Volume Type (data) to be attached to node in GBs [io1,gp2,gp3]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===
-.AWS Quick Start Configuration
-[width="100%",cols="16%,11%,73%",options="header",]</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter label (name)</p></td>
 </tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. AWS Quick Start Configuration</caption>
+<colgroup>
+<col style="width: 16%;">
+<col style="width: 11%;">
+<col style="width: 73%;">
+</colgroup>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Default value</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<th class="tableblock halign-left valign-top">Parameter label (name)</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Bucket Name
 (<code>QSS3BucketName</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aws-quickstart</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Quick Start S3 Key Prefix
 (<code>QSS3KeyPrefix</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>quickstart-apache-rocketmq/</code></p></td>
@@ -1876,23 +1736,47 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>QSS3BucketRegion</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>us-east-1</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">===</p>
-<p class="tableblock">== Send us feedback</p>
-<p class="tableblock">To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
-<p class="tableblock">== Quick Start reference deployments</p>
-<p class="tableblock">See the <a href="https://aws.amazon.com/quickstart/">AWS Quick Start home page</a>.</p>
-<p class="tableblock">== GitHub repository</p>
-<p class="tableblock">Visit our <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> to download
-the templates and scripts for this Quick Start, to post your comments,
-and to share your customizations with others.</p>
-<p class="tableblock">'''
-== Notices</p>
-<p class="tableblock">This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
-<p class="tableblock">The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" target="_blank" rel="noopener">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied. See the License for specific language governing permissions and limitations.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_send_us_feedback">Send us feedback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start_reference_deployments">Quick Start reference deployments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the <a href="https://aws.amazon.com/quickstart/">AWS Quick Start home page</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_github_repository">GitHub repository</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> to download
+the templates and scripts for this Quick Start, to post your comments,
+and to share your customizations with others.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notices">Notices</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document is provided for informational purposes only. It represents AWS’s current product offerings and practices as of the date of issue of this document, which are subject to change without notice. Customers are responsible for making their own independent assessment of the information in this document and any use of AWS’s products or services, each of which is provided “as is” without warranty of any kind, whether expressed or implied. This document does not create any warranties, representations, contractual commitments, conditions, or assurances from AWS, its affiliates, suppliers, or licensors. The responsibilities and liabilities of AWS to its customers are controlled by AWS agreements, and this document is not part of, nor does it modify, any agreement between AWS and its customers.</p>
+</div>
+<div class="paragraph">
+<p>The software included with this paper is licensed under the Apache License, version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at <a href="http://aws.amazon.com/apache2.0/" target="_blank" rel="noopener">http://aws.amazon.com/apache2.0/</a> or in the accompanying "license" file. This code is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either expressed or implied. See the License for specific language governing permissions and limitations.</p>
 </div>
 </div>
 </div>
@@ -1906,10 +1790,10 @@ and to share your customizations with others.</p>
 </html>
 <!--
 repo commit:
-360ec4693f1c1449d9d465d250c0d1ef1921ac54
+da201091616706c1e00ac84795f0a2a7c326f42c
 
 submodule config:
-+df069e8b4d1d4785c42ca6f65a02d880a7d7f3a5 docs/boilerplate (heads/main)
+ 884b4c85313b818048d4d0f88720b0dc2878e9c4 docs/boilerplate (heads/main)
  dd78caba92ec7e31cc2d2b7b623ee53626db986a submodules/quickstart-aws-vpc (v1.0-45-gdd78cab)
  559878955b9f97873a0b2c99aa4c3619f1cb35c1 submodules/quickstart-linux-bastion (heads/main)
 -->
