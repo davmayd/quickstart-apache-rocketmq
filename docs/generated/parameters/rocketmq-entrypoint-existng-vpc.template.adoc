@@ -3,8 +3,7 @@
 [width="100%",cols="16%,11%,73%",options="header",]
 |===
 |Parameter label (name) |Default value|Description|Number of Availability Zones
-(`NumberOfAZs`)|`**__Requires input__**`|Choose the number of Availability Zones to use in the VPC. This must match the number of AZs selected in the *Availability Zones* parameter.|Availability Zones
-(`AvailabilityZones`)|`**__Requires input__**`|Choose two or three Availability Zones to use for the VPC subnets.|VPC ID
+(`NumberOfAZs`)|`**__Requires input__**`|Choose the number of Availability Zones to use in the VPC. This must match the number of AZs selected in the *Availability Zones* parameter.|VPC ID
 (`VPCID`)|`**__Requires input__**`|ID of your existing VPC (e.g., vpc-0343606e).|Private subnet 1 ID
 (`PrivateSubnet1ID`)|`**__Requires input__**`|ID of the private subnet in Availability Zone 1 of your existing VPC (e.g., subnet-fe9a8b32).|Private subnet 2 ID
 (`PrivateSubnet2ID`)|`**__Blank string__**`|ID of the private subnet in Availability Zone 2 of your existing VPC (e.g., subnet-be8b01ea).|Private subnet 3 ID

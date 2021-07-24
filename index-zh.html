@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.12">
-<title>Example Product Name on the AWS Cloud</title>
+<meta name="generator" content="Asciidoctor 2.0.15">
+<title>Apache RocketMQ on the AWS Cloud</title>
 <style>
 
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -182,7 +182,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
   padding-top:0;
   overflow:hidden;
   background:#283e5b;
-  border-bottom: 4px solid #435c7c;
+  /* border-bottom: 4px solid #435c7c; */
   width:320px;
   height:154px;
   top:0;
@@ -411,7 +411,7 @@ span.icon>.fa{cursor:default}
 a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
-.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";color: rgb(3, 87, 21);}
 .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
 .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
 .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
@@ -747,8 +747,43 @@ p {
   font-weight  : 300 !important;
 }
 
-#toc.toc2 #toctitle{
-  background-image: url('images/AWS-Logo.svg');
+/* image layout */
+#toc.toc2 #toctitle {
+  background-image: url("images/AWS-Logo.svg");
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+  width: auto;
+  height: 15%;
+}
+
+/* Left Navbar size */
+#toc.toc2 {
+  width: 17%;
+  min-width: 15em;
+}
+
+/* auto width for main page */
+body.toc2 {
+  padding-left: 22%;
+  padding-right: 2%;
+}
+
+/* hide left nav bar if page size is smaller than 767px */
+@media screen and (max-width: 767px) {
+  #toc {
+      display: none !important;
+  }
+  body.toc2 {
+    padding-left: 1%;
+    padding-right: 1%;
+    position: relative;
+  }
+
+  #content {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
 }
 
 /* QS Tables */
@@ -790,7 +825,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#_overview">Overview</a></li>
-<li><a href="#_example_product_name_on_aws">Example Product Name on AWS</a></li>
+<li><a href="#_apache_rocketmq_on_aws">Apache RocketMQ on AWS</a></li>
 <li><a href="#_cost">Cost</a></li>
 <li><a href="#_software_licenses">Software licenses</a></li>
 <li><a href="#_architecture">Architecture</a></li>
@@ -803,17 +838,16 @@ p.footer-text a{color:#d7d8d8}
 </li>
 <li><a href="#_deployment_steps">Deployment steps</a>
 <ul class="sectlevel2">
-<li><a href="#_sign_in_to_your_aws_account">Sign in to your AWS account</a></li>
+<li><a href="#_登录您的_aws_账户">登录您的 AWS 账户</a></li>
 <li><a href="#_launch_the_quick_start">Launch the Quick Start</a></li>
+<li><a href="#_登录_apache_rocketmq_nameserver_或_broker_服务器节点">登录 Apache RocketMQ NameServer 或 Broker 服务器节点</a></li>
+<li><a href="#_在浏览器中查看_apache_rocketmq_web_控制台">在浏览器中查看 Apache RocketMQ Web 控制台</a></li>
+<li><a href="#_apache_rocketmq_集群相关资源">Apache RocketMQ 集群相关资源</a></li>
 </ul>
 </li>
-<li><a href="#_test_the_deployment">Test the deployment</a></li>
-<li><a href="#_post_deployment_steps">Post-deployment steps</a></li>
-<li><a href="#_best_practices_for_using_example_product_name_on_aws">Best practices for using Example Product Name on AWS</a></li>
-<li><a href="#_security">Security</a></li>
-<li><a href="#_other_useful_information">Other useful information</a></li>
-<li><a href="#_faq">FAQ</a></li>
-<li><a href="#_troubleshooting">Troubleshooting</a></li>
+<li><a href="#_rocketmq_on_aws_最佳实践">RocketMQ on AWS 最佳实践</a></li>
+<li><a href="#_常见问题">常见问题</a></li>
+<li><a href="#_故障排除">故障排除</a></li>
 <li><a href="#_parameter_reference">Parameter reference</a>
 <ul class="sectlevel2">
 <li><a href="#_launch_into_an_new_vpc">Launch into an new VPC</a></li>
@@ -830,33 +864,46 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_example_product_name_on_the_aws_cloud" class="discrete text-center">Example Product Name on the AWS Cloud</h2>
+<h2 id="_apache_rocketmq_on_the_aws_cloud" class="discrete text-center">Apache RocketMQ on the AWS Cloud</h2>
 <h2 id="_quick_start_reference_deployment" class="discrete text-left text-center">Quick Start Reference Deployment</h2>
 <div class="imageblock text-center">
 <div class="content">
-<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-documentation-base/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
+<img src="https://aws-quickstart.s3.amazonaws.com/quickstart-apache-rocketmq/docs/boilerplate/.images/aws-quickstart-graphic.png" alt="QS" width="80" height="80">
 </div>
 </div>
-<div class="paragraph text-center">
-<p><strong>Month of launch or significant update (spelled out) Year</strong><br>
-<em>Shuai Ye, Michael McConnell, and John Smith, Example Company Name, Ltd.</em><br>
-<em>Toni Jones, AWS Quick Start team</em></p>
+<h3 id="_draft_document_unofficial_guidance" class="discrete text-center">DRAFT DOCUMENT / UNOFFICIAL GUIDANCE</h3>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/__settings</em>.adoc</code></strong>_</p>
 </div>
-<div class="admonitionblock tip text-left">
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph text-center">
+<p><strong>四月 2021</strong><br>
+<em>George Gu, Fan Su, Chen Chuan, Apache</em><br>
+<em>Troy Ameigh, Mingwei Leong, AWS Quick Start team</em></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
+Visit our <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> for source files and to post feedback,
 report bugs, or submit feature ideas for this Quick Start.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph text-left">
-<p>This Quick Start was created by Example Company Name, Ltd. in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
+<p>This Quick Start was created by 亚马逊云科技解决方案研发中心 in collaboration with Amazon Web Services (AWS). <a href="http://aws.amazon.com/quickstart/" target="_blank" rel="noopener">Quick Starts</a> are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.</p>
 </div>
 </div>
 </div>
@@ -864,11 +911,23 @@ report bugs, or submit feature ideas for this Quick Start.
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This guide provides instructions for deploying the Example Product Name Quick Start reference architecture on the AWS Cloud.</p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/overview_target_and_usage.adoc</code></strong></em></p>
+</div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>本指南提供了在AWS云上部署 RocketMQ 快速入门参考架构的说明。</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start is for users who &lt;target audience and usage scenario&gt;</p>
-</div>
+<p><a href="https://rocketmq.apache.org/">Apache RocketMQ</a> 是统一消息引擎和轻量级数据处理平台。Apache RocketMQ 快速入门可帮助您在AWS云中部署可配置且高度可用的Apache RocketMQ集群。</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -884,11 +943,23 @@ Amazon may share user-deployment information with the AWS Partner that collabora
 </div>
 </div>
 <div class="sect1">
-<h2 id="_example_product_name_on_aws">Example Product Name on AWS</h2>
+<h2 id="_apache_rocketmq_on_aws">Apache RocketMQ on AWS</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>&lt;Describe how the software works on AWS.&gt;</p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/product_description.adoc</code></strong></em></p>
 </div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>本 Quick Start 设置了一个Amazon Web Services(AWS)架构，该架构在AWS上部署了一个Apache RocketMQ集群。 Apache RocketMQ是一个统一的消息引擎和轻量级的数据处理平台。本快速入门创建和配置Amazon Elastic Compute Cloud (Amazon EC2)实例以托管Apache名称服务器和代理节点。您可以在部署期间配置基本集群设置，例如EC2实例类型。</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -922,84 +993,96 @@ After you deploy the Quick Start, <a href="https://docs.aws.amazon.com/awsaccoun
 <h2 id="_software_licenses">Software licenses</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>&lt;Example 1&gt;No licenses are required to deploy this Quick Start. All AWS service resources consumed during the launch of the Quick Start incur AWS service usage costs.</em></p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/licenses.adoc</code></strong></em></p>
 </div>
-<div class="paragraph">
-<p><em>&lt;Example 2&gt;Some configurations of the Example Product Name Quick Start involve the use of third-party software. You are responsible for obtaining a license directly from the software vendor.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;Example 3&gt;This Quick Start requires a license for Example Product Name. To use the Quick Start in your production environment, sign up for a license at &lt;link&gt;. When you launch the Quick Start, place the license key in an S3 bucket and specify its location.</em></p>
-</div>
-<div class="paragraph">
-<p><em>If you don’t have a license, the Quick Start deploys with a trial license. The trial license gives you &lt;n&gt; days of free usage in a non-production environment. After this time, you can upgrade to a production license by following the instructions at &lt;link&gt;.</em></p>
-</div>
-<div class="paragraph">
-<p><em>&lt;AMI information&gt;The Quick Start requires a subscription to the Amazon Machine Image (AMI) for Example Product Name, which is available from <a href="https://aws.amazon.com/marketplace/" target="_blank" rel="noopener">AWS Marketplace</a>. Additional pricing, terms, and conditions may apply. For instructions, see <a href="#step-2.-subscribe-to-the-software-ami">step 2</a> in the deployment section.</em></p>
-</div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>部署此Quick Start不需要许可证。运行此快速入门参考部署时使用的AWS服务和任何第三方许可证的成本由您负责。使用此Quick Start不会产生额外费用。</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start for a new virtual private cloud (VPC) with
-default parameters builds the following Example Product Name environment in the
-AWS Cloud.</p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/architecture.adoc</code></strong></em></p>
+</div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>为新的 Virtual Private Cloud (VPC) 部署此快速入门
+默认参数构建以下 RocketMQ 环境
+AWS云。</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
-<img src="images/architecture_diagram.png" alt="Architecture" width="100%" height="100%">
+<img src="images/apache-rocketmq-architecture-diagram.png" alt="Architecture" width="100%" height="100%">
 </div>
-<div class="title">Figure 1. Quick Start architecture for Example Product Name on AWS</div>
-</div>
-<div class="paragraph">
-<p>As shown in <a href="#architecture1">Figure 1</a>, the Quick Start sets up the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A highly available architecture that spans two Availability Zones.*</p>
-</li>
-<li>
-<p>A VPC configured with public and private subnets, according to AWS
-best practices, to provide you with your own virtual network on AWS.*</p>
-</li>
-<li>
-<p>In the public subnets:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Managed network address translation (NAT) gateways to allow outbound
-internet access for resources in the private subnets.*</p>
-</li>
-<li>
-<p>A Linux bastion host in an Auto Scaling group to allow inbound Secure
-Shell (SSH) access to EC2 instances in public and private subnets.*</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>In the private subnets:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>&lt;item&gt;.</p>
-</li>
-<li>
-<p>&lt;item&gt;.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>&lt;describe any additional components&gt;.</p>
-</li>
-</ul>
+<div class="title">Figure 1. AWS 上 RocketMQ 的快速入门架构</div>
 </div>
 <div class="paragraph">
-<p><span class="small">*The template that deploys the Quick Start into an existing VPC skips the components marked by asterisks and prompts you for your existing VPC configuration.</span></p>
+<p>如 <a href="#architecture1">Figure 1</a> 所示，快速入门设置如下：</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>高度可用的架构，最多可跨越三个可用区。*</p>
+</li>
+<li>
+<p>根据 AWS，配置有公有和私有子网的 VPC
+最佳实践，在 AWS 上为您提供您自己的虚拟网络。*</p>
+</li>
+<li>
+<p>在公共子网中：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>托管网络地址转换 (NAT) 网关以允许出站
+私有子网中资源的 Internet 访问。*</p>
+</li>
+<li>
+<p>Auto Scaling 组中的 Linux 堡垒主机允许入站安全
+对公有和私有子网中的 EC2 实例的 Shell (SSH) 访问。*</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>在私有子网中：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>用于 Apache RocketMQ 名称服务器的 Amazon Elastic Compute Cloud (Amazon EC2) 实例。您可以部署 1-3 个 NameServer 节点。默认值为三（如图所示）。</p>
+</li>
+<li>
+<p>在每个 Apache NameServer 实例上运行的 Apache RocketMQ Web 控制台。</p>
+</li>
+<li>
+<p>Apache RocketMQ 代理服务器的 EC2 实例。您可以部署一个或三个 Broker 服务器节点。默认值为三（如图所示）。</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="small">*将 Quick Start 部署到现有 VPC 的模板会跳过星号标记的组件，并提示您输入现有 VPC 配置。</span></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -1011,8 +1094,20 @@ Shell (SSH) access to EC2 instances in public and private subnets.*</p>
 <p>This deployment requires a moderate level of familiarity with AWS services. If you’re new to AWS, visit <a href="https://aws.amazon.com/getting-started/" target="_blank" rel="noopener">Getting Started with AWS</a> and <a href="https://aws.amazon.com/training/" target="_blank" rel="noopener">Training and Certification</a>. These sites provide materials for learning how to design, deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </div>
 <div class="paragraph">
-<p>This Quick Start also assumes familiarity with &lt;knowledge expectations specific to this Quick Start&gt;.</p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/specialized_knowledge.adoc</code></strong></em></p>
 </div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>本快速入门假设您熟悉 <a href="https://aws.amazon.com/ec2/">Amazon EC2</a>, <a href="https://aws.amazon.com/vpc/">Amazon VPC</a>和 <a href="https://rocketmq.apache.org/">Apache RocketMQ</a></p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_aws_account">AWS account</h3>
@@ -1033,6 +1128,10 @@ Shell (SSH) access to EC2 instances in public and private subnets.*</p>
 <div class="paragraph">
 <p>If necessary, request <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">service quota increases</a> for the following resources. You might need to request increases if your existing deployment currently uses these resources and if this Quick Start deployment could result in exceeding the default quotas. The <a href="https://console.aws.amazon.com/servicequotas/home?region=us-east-2#!/" target="_blank" rel="noopener">Service Quotas console</a> displays your usage and quotas for some aspects of some services. For more information, see <a href="https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html" target="_blank" rel="noopener">What is Service Quotas?</a> and <a href="https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html" target="_blank" rel="noopener">AWS service quotas</a>.</p>
 </div>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/service_limits.adoc</code></strong></em></p>
+</div>
+<div class="preview_mode">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1047,53 +1146,49 @@ Shell (SSH) access to EC2 instances in public and private subnets.*</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VPCs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Elastic IP addresses</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security groups</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AWS Identity and Access Management (IAM) roles</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Auto Scaling groups</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Application Load Balancers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m5.large instances (Apache name server hosts)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Network Load Balancers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">m5.xlarge instances (Apache broker hosts)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;type&gt; instances</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;n&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">t2.micro instances (bastion hosts)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
 <div class="sect3">
 <h4 id="_supported_regions">Supported Regions</h4>
 <div class="paragraph">
-<p>This Quick Start supports the following Regions:</p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/regions.adoc</code></strong></em></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>us-east-1, US East (N. Virginia) (EXAMPLE)</p>
-</li>
-<li>
-<p>us-east-2, US East (Ohio) (EXAMPLE)</p>
-</li>
-</ul>
+<div id="preview_mode">
+<div class="paragraph">
+<p>此Quick Start 在所有AWS区域都可用。有关更多信息，请参阅 <a href="https://docs.aws.amazon.com/general/latest/gr/rande.html">AWS服务端点</a>。</p>
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1110,6 +1205,13 @@ Certain Regions are available on an opt-in basis. See <a href="https://docs.aws.
 </div>
 <div class="sect3">
 <h4 id="_ec2_key_pairs">EC2 key pairs</h4>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><em>This section applies only if the Cloudformation templates include EC2 instances.</em></p>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>Make sure that at least one <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pair</a> exists in your AWS account in the Region where you plan to deploy the Quick Start. Make note of the key pair name. You need it during deployment. To create a key pair, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html" target="_blank" rel="noopener">Amazon EC2 key pairs and Linux instances</a>.</p>
 </div>
@@ -1122,43 +1224,51 @@ Certain Regions are available on an opt-in basis. See <a href="https://docs.aws.
 <div class="paragraph">
 <p>Before launching the Quick Start, you must sign in to the AWS Management Console with IAM permissions for the resources that the templates deploy. The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions. For more information, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">AWS managed policies for job functions</a>.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_your_aws_account">Prepare your AWS account</h4>
 <div class="paragraph">
-<p><em>Describe any setup required in the AWS account prior to template launch</em></p>
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/pre-reqs.adoc</code></strong></em></p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_your_example_company_name_ltd_account">Prepare your Example Company Name, Ltd. account</h4>
-<div class="paragraph">
-<p><em>Describe any setup required in the partner portal/account prior to template launch</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_prepare_for_the_deployment">Prepare for the deployment</h4>
-<div class="paragraph">
-<p><em>Describe any preparation required to complete the product build, such as obtaining licenses or placing files in S3</em></p>
-</div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_deployment_options">Deployment options</h4>
 <div class="paragraph">
-<p>This Quick Start provides two deployment options:</p>
+<p><em><strong>This portion of the deployment guide is located at <code></em></strong>This portion of the deployment guide is located at `docs/languages/docs-{LANG_CODE}/partner_editable/pre-reqs.adoc</code><strong>_
+/partner_editable/deployment_options.adoc`</strong>_</p>
+</div>
+<table class="tableblock frame-all grid-all stretch preview_mode">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>此快速入门提供两个部署选项：</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Deploy Example Product Name into a new VPC</strong>. This option builds a new AWS environment consisting of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys Example Product Name into this new VPC.</p>
+<p><strong>将 RocketMQ 部署到新的 VPC</strong>。此选项构建一个新的 AWS 环境，其中包括 VPC、子网、NAT 网关、安全组、堡垒主机和其他基础设施组件。 然后将 RocketMQ 部署到这个新的 VPC 中。</p>
 </li>
 <li>
-<p><strong>Deploy Example Product Name into an existing VPC</strong>. This option provisions Example Product Name in your existing AWS infrastructure.</p>
+<p><strong>将 RocketMQ 部署到现有 VPC</strong>。此选项在您现有的 AWS 基础设施中预置 RocketMQ。</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and Example Product Name settings, as discussed later in this guide.</p>
-</div>
+<p>快速入门为这些选项提供了单独的模板。它还允许您配置无类别域间路由 (CIDR) 块、实例类型和 RocketMQ 设置，如本指南后面所述。</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -1166,15 +1276,19 @@ Certain Regions are available on an opt-in basis. See <a href="https://docs.aws.
 <div class="sect1">
 <h2 id="_deployment_steps">Deployment steps</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/partner_editable/deploy_steps.adoc</code></strong></em></p>
+</div>
+<div class="preview_mode">
 <div class="sect2">
-<h3 id="_sign_in_to_your_aws_account">Sign in to your AWS account</h3>
+<h3 id="_登录您的_aws_账户">登录您的 AWS 账户</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Sign in to your AWS account at <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> with an IAM user role that has the necessary permissions. For details, see <a href="#_planning_the_deployment">Planning the deployment</a> earlier in this guide.</p>
+<p>使用具有必要权限的 IAM 用户角色在 <a href="https://aws.amazon.com" class="bare">https://aws.amazon.com</a> 上登录您的 AWS 账户。 有关详细信息，请参阅本指南前面的链接：#_planning_the_deployment[规划部署]。</p>
 </li>
 <li>
-<p>Make sure that your AWS account is configured correctly, as discussed in the <a href="#_technical_requirements">Technical requirements</a> section.</p>
+<p>确保您的 AWS 账户配置正确，如链接中所述：#_technical_requirements[技术要求] 部分。</p>
 </li>
 </ol>
 </div>
@@ -1188,53 +1302,48 @@ Certain Regions are available on an opt-in basis. See <a href="https://docs.aws.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If you’re deploying Example Product Name into an existing VPC, make sure that your VPC has two private subnets in different Availability Zones for the workload instances and that the subnets aren’t shared. This Quick Start doesn’t support <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">shared subnets</a>. These subnets require <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> in their route tables to allow the instances to download packages and software without exposing them to the internet. Also make sure that the domain name option in the DHCP options is configured as explained in <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">DHCP options sets</a>. You provide your VPC settings when you launch the Quick Start.
+如果您要将 RocketMQ 部署到现有 VPC，请确保您的 VPC 在不同可用区中有两个私有子网用于工作负载实例，并且子网未共享。此快速入门不支持 <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html" target="_blank" rel="noopener">共享子网</a>。这些子网需要在其路由表中使用 <a href="https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html" target="_blank" rel="noopener">NAT gateways</a> 以允许实例下载软件包和软件，而不会将它们暴露给互联网。还要确保按照 <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html" target="_blank" rel="noopener">DHCP 选项集</a> 中的说明配置 DHCP 选项中的域名选项。您在启动快速入门时提供 VPC 设置。
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Each deployment takes about 15 minutes / 60 minutes / 1.5 hours to complete.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see <a href="#_deployment_options">Deployment options</a> earlier in this guide.</p>
-</li>
-</ol>
+<p>每次部署大约需要 15-20 分钟 才能完成。</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. 登录您的 AWS 账户，然后选择以下选项之一来启动 AWS CloudFormation 模板。有关选择选项的帮助，请参阅本指南前面的链接：#_deployment_options[部署选项]。</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy Example Product Name into a new VPC on AWS</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/9dXW6" target="_blank" rel="noopener">将 RocketMQ 部署到 AWS 上的新 VPC</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://aws-quickstart.s3.amazonaws.com/quickstart-apache-rocketmq/templates/rocketmq-entrypoint.template.yaml" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy Example Product Name into an existing VPC on AWS</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="http://qs_template_permalink" target="_blank" rel="noopener">View template</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://fwd.aws/xnNG6" target="_blank" rel="noopener">将 RocketMQ 部署到 AWS 上的现有 VPC</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://aws-quickstart.s3.amazonaws.com/quickstart-apache-rocketmq/templates/rocketmq.yaml" target="_blank" rel="noopener">View template</a></p></td>
 </tr>
 </tbody>
 </table>
 <div class="olist arabic">
 <ol class="arabic" start="2">
 <li>
-<p>Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This Region is where the network infrastructure for Example Product Name is built. The template is launched in the us-east-1 Region by default. For other choices, see <a href="#_supported_regions">Supported Regions</a> earlier in this guide.</p>
+<p>检查导航栏右上角显示的 AWS 区域，并根据需要进行更改。 此区域是构建 RocketMQ 网络基础设施的地方。 默认情况下，模板在 us-east-1 区域中启动。 有关其他选择，请参阅本指南前面的链接：#_supported_regions[Supported Regions]。</p>
 </li>
 </ol>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="3">
 <li>
-<p>On the <strong>Create stack</strong> page, keep the default setting for the template URL, and then choose <strong>Next</strong>.</p>
+<p>在 <strong>Create stack</strong> 页面上，保留模板 URL 的默认设置，然后选择 <strong>Next</strong>。</p>
 </li>
 <li>
-<p>On the <strong>Specify stack details</strong> page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings and customize them as necessary. For details on each parameter, see the <a href="#_parameter_reference">Parameter reference</a> section of this guide. When you finish reviewing and customizing the parameters, choose <strong>Next</strong>.</p>
+<p>在 <strong>Specify stack details</strong> 页面上，根据需要更改堆栈名称。 查看模板的参数。 为需要输入的参数提供值。 对于所有其他参数，请查看默认设置并根据需要对其进行自定义。 有关每个参数的详细信息，请参阅本指南的链接：#_parameter_reference[参数参考] 部分。 完成查看和自定义参数后，选择 <strong>Next</strong>。</p>
 </li>
 </ol>
+</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic" start="5">
@@ -1248,10 +1357,10 @@ If you’re deploying Example Product Name into an existing VPC, make sure that 
 <p>Choose <strong>Create stack</strong> to deploy the stack.</p>
 </li>
 <li>
-<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Example Product Name deployment is ready.</p>
+<p>Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the RocketMQ deployment is ready.</p>
 </li>
 <li>
-<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">Figure 2</a>, to view the created resources.</p>
+<p>Use the values displayed in the <strong>Outputs</strong> tab for the stack, as shown in <a href="#cfn_outputs">RocketMQ outputs after successful deployment</a>, to view the created resources.</p>
 </li>
 </ol>
 </div>
@@ -1259,84 +1368,326 @@ If you’re deploying Example Product Name into an existing VPC, make sure that 
 <div class="content">
 <a class="image" href="images/cfn_outputs.png"><img src="images/cfn_outputs.png" alt="cfn_outputs" width="100%" height="100%"></a>
 </div>
-<div class="title">Figure 2. Example Product Name outputs after successful deployment</div>
+<div class="title">Figure 2. RocketMQ outputs after successful deployment</div>
+</div>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/additional_info.adoc</code></strong></em></p>
+</div>
+<div class="preview_mode">
+</div>
+<div class="sect2">
+<h3 id="_登录_apache_rocketmq_nameserver_或_broker_服务器节点">登录 Apache RocketMQ NameServer 或 Broker 服务器节点</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>添加 PEM 密钥对。 例如：</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">ssh-add -k /Users/username/tmp/rocketmqXXX.pem</code></pre>
 </div>
 </div>
+<div class="olist arabic">
+<ol class="arabic" start="2">
+<li>
+<p>登录堡垒主机。</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">ssh -A  ec2-user@ecXXXXXXXX.cn-north-1.compute.amazonaws.com.cn</code></pre>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_test_the_deployment">Test the deployment</h2>
-<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>从 Amazon EC2 控制台获取 IP 地址。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>在浏览器中打开 <a href="https://console.aws.amazon.com/ec2/">Amazon EC2 console</a>.</p>
+</li>
+<li>
+<p>在EC2的控制台*实例*窗口, 选择指定的实例. 请注意 <strong>Description</strong> 选项卡中的 <strong>Private IPs</strong>，如 <a href="#IPaddress">Figure 3</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div id="IPaddress" class="imageblock">
+<div class="content">
+<a class="image" href="images/NameServerIPAddress.png"><img src="images/NameServerIPAddress.png" alt="NameServerAddress" width="75%" height="75%"></a>
+</div>
+<div class="title">Figure 3. EC2 instance private IP address</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="4">
+<li>
+<p>从堡垒主机，登录到具有 IP 地址的节点。 例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">(ec2-user@ip-10-0-136-135) $ ssh 10.0.6.235
 
-</div>
-</div>
-<div class="sect1">
-<h2 id="_post_deployment_steps">Post-deployment steps</h2>
-<div class="sectionbody">
+Last login: Wed Jan  6 04:55:01 2021 from ip-10-0-136-135.cn-north-1.compute.internal
 
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+https://aws.amazon.com/amazon-linux-2/
+
+[ec2-user@ip-10-0-6-235 ~]$</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>登录节点后，您可以使用 <a href="https://rocketmq.apache.org/docs/cli-admin-tool/">Apache RocketMQ 命令行工具</a> 来查询、管理和诊断问题。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_在浏览器中查看_apache_rocketmq_web_控制台">在浏览器中查看 Apache RocketMQ Web 控制台</h3>
+<div class="paragraph">
+<p>默认部署在Name Server上安装 Apache RocketMQ Web 控制台。 但是，由于Apache Name Server运行在私有子网中运行，因此无法通过浏览器直接访问它们。要访问Name Server的私有IP地址的8080端口，请配置与堡垒主机SSH隧道的SSH连接。 然后使用SSH隧道访问Web控制台。</p>
+</div>
+<div id="step1" class="olist arabic">
+<ol class="arabic">
+<li>
+<p>使用 SSH 和以下命令建立与堡垒主机的连接。 用您的参数替换 <code><em>port number</em></code>、<code><em>key pair.pem</em></code>、<code><em>user name</em></code> 和 <code><em>host name</em></code>。</p>
+<div class="paragraph">
+<p><code>ssh -qTfnN -D <em>port number</em> -i "<em>key pair.pem</em>" <em>user name</em>@<em>host name</em></code></p>
+</div>
+<div class="paragraph">
+<p>例如:</p>
+</div>
+<div class="paragraph">
+<p><code>ssh -qTfnN -D 40011  -i "rocketMQ.pem" ec2-user@ec2-54-223-36-247.cn-north-1.compute.amazonaws.com.cn</code></p>
+</div>
+</li>
+<li>
+<p>在浏览器中设置代理管理器。 有许多可用的代理管理器插件。 本文使用SwitchyOmega。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>安装 SwitchyOmega 插件</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://microsoftedge.microsoft.com/addons/detail/proxy-switchyomega/fdbloeknjpnloaggplaobopplkdhnikc?hl=en-US">Microsoft Edge</a></p>
+</li>
+<li>
+<p><a href="https://addons.mozilla.org/en-US/firefox/addon/switchyomega/?utm_source=addons.mozilla.org&amp;utm_medium=referral&amp;utm_content=search">Firefox</a></p>
+</li>
+<li>
+<p><a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif?hl=en-US">Google Chrome</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>打开 SwitchyOmega 选项页面，然后在左侧边栏中选择 <strong>New Profile</strong>。</p>
+<div id="addprofile" class="imageblock">
+<div class="content">
+<a class="image" href="images/SwitchyOmega1.png"><img src="images/switchyOmega1.png" alt="SwitchyOmega" width="50%" height="50%"></a>
+</div>
+<div class="title">Figure 4. 添加新的 SwitchyOmega 配置</div>
+</div>
+</li>
+<li>
+<p>输入名称并选择*创建*。</p>
+<div id="profilename" class="imageblock">
+<div class="content">
+<a class="image" href="images/SwitchyOmega2.png"><img src="images/switchyOmega2.png" alt="SwitchyOmega" width="50%" height="50%"></a>
+</div>
+<div class="title">Figure 5. 配置名称</div>
+</div>
+</li>
+<li>
+<p>Enter the <strong>Protocol</strong>, <strong>Server</strong>, and <strong>Port</strong> for proxy server. The port should be the local port where you set up the SSH tunnel in <a href="#_step1">step 1</a>.</p>
+</li>
+<li>
+<p>为代理服务器输入 <strong>Protocol</strong>、<strong>Server</strong> 和 <strong>Port</strong>。 该端口应该是您在链接中设置 SSH 隧道的本地端口 <a href="#_step1">step 1</a>。</p>
+<div id="proxyserverinfo" class="imageblock">
+<div class="content">
+<a class="image" href="images/proxyserverinfo.png"><img src="images/proxyserverinfo.png" alt="SwitchyOmega" width="50%" height="50%"></a>
+</div>
+<div class="title">Figure 6. 代理服务器</div>
+</div>
+</li>
+<li>
+<p>Select <strong>Apply Changes</strong>.</p>
+</li>
+<li>
+<p>通过浏览器的扩展图标访问 SwitchyOmega。 在代理列表中选择您创建的配置文件。 浏览器将通过本地端口 40011 代理将所有流量发送到堡垒主机。</p>
+<div id="proxylist" class="imageblock">
+<div class="content">
+<a class="image" href="images/SwitchyOmega4.png"><img src="images/switchyOmega4.png" alt="SwitchyOmega" width="50%" height="50%"></a>
+</div>
+<div class="title">Figure 7. 代理列表</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>要在浏览器中查看 Apache RocketMQ Web 控制台，请导航到 <code>http://10.0.xx.xx:8080</code>。 将 <code>xx.xx</code> 替换为名称服务器的私有 IP 地址。 您可以在 EC2 控制台中找到Name Server的私有 IP 地址。</p>
+<div id="ec2console" class="imageblock">
+<div class="content">
+<a class="image" href="images/ec2.png"><img src="images/ec2.png" alt="ec2" width="90%" height="90%"></a>
+</div>
+<div class="title">Figure 8. EC2 控制台中 Apache RocketMQ Name Server的私有 IP 地址</div>
+</div>
+<div class="paragraph">
+<p><a href="#webconsole">Figure 9</a> 显示了 Apache RocketMQ Web 控制台中的 Apache RocketMQ 集群示例。</p>
+</div>
+<div id="webconsole" class="imageblock">
+<div class="content">
+<a class="image" href="images/ec2.png"><img src="images/rocketMQConsole.png" alt="console" width="90%" height="90%"></a>
+</div>
+<div class="title">Figure 9. Apache RocketMQ web控制台</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_apache_rocketmq_集群相关资源">Apache RocketMQ 集群相关资源</h3>
+<div class="sect3">
+<h4 id="_nameserver_节点">NameServer 节点</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache RocketMQ 部署目录: <code>/home/ec2-user/rocketmq-deploy</code></p>
+</li>
+<li>
+<p>Apache RocketMQ 安装目录: <code>/home/ec2-user/rocketmq-deploy/rocketmq-all-4.7.1-bin-release</code> or <code>/home/ec2-user/rocketmq-deploy/rocketmq-all-4.8.0-bin-release</code></p>
+</li>
+<li>
+<p>安装脚本对应的日志文件用于定位安装过程中遇到的问题: <code>/home/ec2-user/rocketmq-deploy/install.log</code></p>
+</li>
+<li>
+<p>Apache RocketMQ web控制台jar包文件所在位置: <code>/home/ec2-user/rocketmq-deploy/rocketmq-console-ng-1.0.0.jar</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_broker_server_节点">Broker server 节点</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache RocketMQ 部署目录: <code>/home/ec2-user/rocketmq-deploy</code></p>
+</li>
+<li>
+<p>Apache RocketMQ 安装目录: <code>/home/ec2-user/rocketmq-deploy/rocketmq-all-4.7.1-bin-release</code> or <code>/home/ec2-user/rocketmq-deploy/rocketmq-all-4.8.0-bin-release</code></p>
+</li>
+<li>
+<p>安装脚本对应的日志文件用于定位安装过程中遇到的问题: <code>/home/ec2-user/rocketmq-deploy/install.log</code></p>
+</li>
+<li>
+<p>RocketMQ配置文件所在目录: <code>/home/ec2-user/rocketmq-deploy/rocketMQ-config/</code></p>
+</li>
+<li>
+<p>Apache RocketMQ 本地文件存储目录 : <code>/home/ec2-user/rocketmq-deploy/rmqstore</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_best_practices_for_using_example_product_name_on_aws">Best practices for using Example Product Name on AWS</h2>
+<h2 id="_rocketmq_on_aws_最佳实践">RocketMQ on AWS 最佳实践</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://rocketmq.apache.org/docs/best-practice-namesvr/">Best Practice for NameServer</a></p>
+</li>
+<li>
+<p><a href="https://rocketmq.apache.org/docs/best-practice-broker/">Best Practice for Broker</a></p>
+</li>
+<li>
+<p><a href="https://rocketmq.apache.org/docs/best-practice-producer/">Best Practice for Producer</a></p>
+</li>
+<li>
+<p><a href="https://rocketmq.apache.org/docs/best-practice-consumer/">Best Practice for Consumer</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em><strong>This portion of the deployment guide is located at <code>docs/languages/docs-zh/partner_editable/faq_troubleshooting.adoc</code></strong></em></p>
+</div>
+<div class="preview_mode">
+</div>
+</div>
+<div class="sect1">
+<h2 id="_常见问题">常见问题</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><em>Add any best practices for using the software.</em></p>
+<p><strong>Q.</strong> 我在启动Quick Start时遇到了 <strong>CREATE_FAILED</strong> 错误。</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> 如果AWS CloudFormation无法创建堆栈，请重新启动模板，并将*Rollback on failure*设置为 <strong>Disabled</strong>。此设置位于 <strong>Configure stack options</strong> 页面上 AWS CloudFormation 控制台中的 <strong>Advanced</strong> 下。使用此设置，堆栈的状态会保留，并且实例会继续运行，以便您可以对问题进行故障排除。（对于 Windows，查看 <code>%ProgramFiles%\Amazon\EC2ConfigService</code> 和 <code>C:\cfn\log</code> 中的日志文件。）</p>
+</div>
+<div class="paragraph">
+<p>警告：当您将 <strong>Rollback on failure</strong> 设置为 <strong>Disabled</strong> 时，您将继续为此堆栈产生 AWS 费用。完成故障排除后删除堆栈。</p>
+</div>
+<div class="paragraph">
+<p>有关更多信息，请参阅 <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">AWS CloudFormation 疑难解答</a>。</p>
+</div>
+<div class="paragraph">
+<p><strong>Q.</strong> 我在部署 AWS CloudFormation 模板时遇到了大小限制错误。</p>
+</div>
+<div class="paragraph">
+<p><strong>A.</strong> 从本指南中的链接或从另一个 S3 存储桶启动快速入门模板。如果您从计算机上的本地副本或从 S3 存储桶以外的位置部署模板，您可能会遇到模板大小限制。有关更多信息，请参阅 <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation 配额</a>。</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_security">Security</h2>
+<h2 id="_故障排除">故障排除</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><em>Add any security-related information.</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p>我无法访问 Apache RocketMQ Web 控制台。</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Apache RocketMQ Web 控制台在私有子网中的 Apache 名称服务器上运行。验证从桌面到堡垒主机的 SSH 隧道是否设置为连接到 Apache 名称服务器。</p>
+</li>
+<li>
+<p>如果 SSH 隧道设置正确，但您仍然无法打开 Web 控制台，则可能是 Web 控制台未正常启动。登录名称服务器并检查位于 <code>/home/ec2-user/rocketmq-deploy/install.log</code> 的安装日志文件。</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>Apache RocketMQ 代理服务器集群未显示在 Apache RocketMQ Web 控制台中。</p>
+<div class="ulist">
+<ul>
+<li>
+<p>登录broker节点，查看`/home/ec2-user/rocketmq-deploy/install.log`中的安装日志。您可以向 Quick Start GitHub <a href="https://fwd.aws/wJrW8">repository</a> ​​提交问题以获得帮助。在您的提交中包含错误日志。</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>如何访问 Apache RocketMQ 内部日志？</p>
+<div class="ulist">
+<ul>
+<li>
+<p>在名称服务器和代理上，内部 Apache RocketMQ 日志位于 <code>/home/ec2-user/rocketmq-deploy/</code> 中。</p>
+</li>
+</ul>
 </div>
-<div class="sect1">
-<h2 id="_other_useful_information">Other useful information</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><em>Add any other details that will help the customer use the software on AWS.</em></p>
+</li>
+</ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_faq">FAQ</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Q.</strong> I encountered a <strong>CREATE_FAILED</strong> error when I launched the Quick Start.</p>
-</div>
-<div class="paragraph">
-<p><strong>A.</strong> If AWS CloudFormation fails to create the stack, relaunch the template with <strong>Rollback on failure</strong> set to <strong>Disabled</strong>. This setting is under <strong>Advanced</strong> in the AWS CloudFormation console on the <strong>Configure stack options</strong> page. With this setting, the stack’s state is retained, and the instance keeps running so that you can troubleshoot the issue. (For Windows, look at the log files in <code>%ProgramFiles%\Amazon\EC2ConfigService</code> and <code>C:\cfn\log</code>.)</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, you continue to incur AWS charges for this stack. Delete the stack when you finish troubleshooting.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>For more information, see <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html" target="_blank" rel="noopener">Troubleshooting AWS CloudFormation</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q.</strong> I encountered a size-limitation error when I deployed the AWS CloudFormation templates.</p>
-</div>
-<div class="paragraph">
-<p><strong>A.</strong> Launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template-size limitations. For more information, see <a href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html" target="_blank" rel="noopener">AWS CloudFormation quotas</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_troubleshooting">Troubleshooting</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>&lt;Steps for troubleshooting the deployment.&gt;</p>
 </div>
 </div>
 </div>
@@ -1359,7 +1710,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <div class="sect2">
 <h3 id="_launch_into_an_new_vpc">Launch into an new VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Network configuration</caption>
+<caption class="title">Table 2. Network configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1436,7 +1787,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Security configuration</caption>
+<caption class="title">Table 3. Security configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1459,7 +1810,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Amazon EC2 Linux bastion host configuration</caption>
+<caption class="title">Table 4. Amazon EC2 Linux bastion host configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1494,7 +1845,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Apache RocketMQ cluster configuration</caption>
+<caption class="title">Table 5. Apache RocketMQ cluster configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1565,7 +1916,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. AWS Quick Start Configuration</caption>
+<caption class="title">Table 6. AWS Quick Start Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1603,7 +1954,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <div class="sect2">
 <h3 id="_launch_into_an_existing_vpc">Launch into an existing VPC</h3>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Network Configuration</caption>
+<caption class="title">Table 7. Network Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1622,12 +1973,6 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 (<code>NumberOfAZs</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Choose the number of Availability Zones to use in the VPC. This must match the number of AZs selected in the <strong>Availability Zones</strong> parameter.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Availability Zones
-(<code>AvailabilityZones</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>Requires input</em></strong></code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Choose two or three Availability Zones to use for the VPC subnets.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VPC ID
@@ -1680,7 +2025,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Security Configuration</caption>
+<caption class="title">Table 8. Security Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1703,7 +2048,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Linux Bastion Amazon EC2 Configuration</caption>
+<caption class="title">Table 9. Linux Bastion Amazon EC2 Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1738,7 +2083,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. RocketMQ Cluster Configuration</caption>
+<caption class="title">Table 10. RocketMQ Cluster Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1809,7 +2154,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. AWS Quick Start Configuration</caption>
+<caption class="title">Table 11. AWS Quick Start Configuration</caption>
 <colgroup>
 <col style="width: 16%;">
 <col style="width: 11%;">
@@ -1850,7 +2195,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1866,7 +2211,7 @@ Region</code>, and <code>Quick Start S3 key prefix</code>. Changing these parame
 <h2 id="_github_repository">GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-documentation-base" target="_blank" rel="noopener">GitHub repository</a> to download
+<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-apache-rocketmq" target="_blank" rel="noopener">GitHub repository</a> to download
 the templates and scripts for this Quick Start, to post your comments,
 and to share your customizations with others.</p>
 </div>
